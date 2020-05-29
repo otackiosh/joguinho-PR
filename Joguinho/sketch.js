@@ -93,10 +93,8 @@ function draw() {
   background(0);
   noStroke();
   fill(255  );
-  let msAt = millis();
-  let secAt = second();
   text('Pontuacao: ' +pontuacao, 50, 50);
-  text('Tempo: ' + (secAt - sec), 50, 70);
+  // text('xis de: ' + timer, 50, 70);
 
   player.drawP();
   for(let i = setas.length-1; i >=0; i--){
@@ -104,12 +102,10 @@ function draw() {
     if(setas[i].moveSeta()){
       if (player.sentido == setas[i].direcao){
         pontuacao++;
-        console.log("acertou");
       }
       else{
         pontuacao = 0;
-        sec = second();
-        console.log("errou");
+        timer = 0;
       }
     setas.splice(i, 1);
     }
