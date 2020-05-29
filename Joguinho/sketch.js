@@ -5,17 +5,16 @@ let sizeUpBtn;
 let sizeDownBtn;
 let cnv;
 let timer =0;
+let pontuacao=0;
+let ms, sec;
 
 
 function setup() {
   cnv = createCanvas(canvasSize,canvasSize);
   cnv.position(50, 50);
+  ms = millis();
+  sec = second();
 
-  textAlign(CENTER, CENTER);
-  
-  textSize(32);
-  fill(0);
-  text('oie', 10, 30);
 
   // sizeDownBtn = createButton('-');  
   // sizeDownBtn.position(50+canvasSize, 50+canvasSize - 20);
@@ -77,7 +76,6 @@ function keyPressed(){
 
 function draw() {
   if (frameCount % 60 == 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
-
     let dir = Math.floor(Math.random() * 4);
     let vel = Math.floor(Math.random() * 4 + 2);
     let cor = Math.floor(Math.random()*100);
@@ -91,15 +89,26 @@ function draw() {
     timer++;
   }
 
+
   background(0);
+  noStroke();
+  fill(255  );
+  let msAt = millis();
+  let secAt = second();
+  text('Pontuacao: ' +pontuacao, 50, 50);
+  text('Tempo: ' + (secAt - sec), 50, 70);
+
   player.drawP();
   for(let i = setas.length-1; i >=0; i--){
     setas[i].drawSeta();
     if(setas[i].moveSeta()){
       if (player.sentido == setas[i].direcao){
+        pontuacao++;
         console.log("acertou");
       }
       else{
+        pontuacao = 0;
+        sec = second();
         console.log("errou");
       }
     setas.splice(i, 1);
